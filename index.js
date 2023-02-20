@@ -4,7 +4,7 @@ const {
   Events, 
   GatewayIntentBits, 
   Partials, 
-  MessageEmbed} = require('discord.js');
+  EmbedBuilder } = require('discord.js');
 require('dotenv').config()
 
 const client = new Client({
@@ -23,7 +23,7 @@ const client = new Client({
 //Listen to the event that signals the bot is ready to start working
 client.on("ready", () => {
   console.log(`logged in as ${client.user.tag}`);
-  client.channels.cache.get(`1076914336745922725`).send(`Ich kann nicht sprechen, nyaaaa~ :C`)
+  client.channels.cache.get(`1076914336745922725`).send(`Moiin Joker :D`)
 });
 
 //Listen to new messages on the server
@@ -35,7 +35,7 @@ client.on("messageCreate", async (message) => {
     }
   if (message.content === "try embed"){
     console.log(`logged in as ${client.user.tag}`);
-    const exampleEmbed = new MessageEmbed()
+    const exampleEmbed = new EmbedBuilder()
     .setColor(0x0099FF)
     .setTitle('Some title')
     .setURL('https://discord.js.org/')
