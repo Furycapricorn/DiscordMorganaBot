@@ -30,25 +30,27 @@ client.on("ready", () => {
   console.log(`logged in as ${client.user.tag}`);
 
   console.log('Send Button')
-    const row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setCustomId('acceptButton')
-					.setLabel('Accept')
-					.setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-          .setCustomId('declineButton')
-          .setLabel('Decline')
-          .setStyle(ButtonStyle.Secondary)
-			);
+  const buttonRow = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId('acceptButton')
+        .setLabel('Accept')
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+        .setCustomId('declineButton')
+        .setLabel('Decline')
+        .setStyle(ButtonStyle.Secondary)
+    );
     //message.reply({ content: 'Do you accept your fate', components: [row] });
-
-  client.channels.cache.get(`1077287262754197625`).send({ content: 'Do you accept your fate', components: [row] })
+  const ruleChannel = client.channels.cache.get(`1077287262754197625`)
+  const fetched = ruleChannel.fetchMessages({limit: 2})
+  ruleChannel.bulkDelete(fetched)
+  ruleChannel.send({ content: 'Do you accept your fate', components: [buttonRow] })
 });
 
 //Listen to new messages on the server
 client.on("messageCreate", async (message) => {
-  console.log('recived message'+ message.content)
+  console.log('recived message: '+ message.content)
   
   if (message.content === "ping") {
     message.reply("pong");
