@@ -1,21 +1,35 @@
 //index.js
-const { Client, Events, GatewayIntentBits, Partials, MessageEmbed} = require('discord.js');
+const { 
+  Client, 
+  Events, 
+  GatewayIntentBits, 
+  Partials, 
+  MessageEmbed} = require('discord.js');
 require('dotenv').config()
 
 const client = new Client({
-	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
-	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+	intents: [
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMessages, 
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.MessageContent
+  ],
+	partials: [
+    Partials.Message, 
+    Partials.Channel, 
+    Partials.Reaction],
 });
 
 //Listen to the event that signals the bot is ready to start working
 client.on("ready", () => {
   console.log(`logged in as ${client.user.tag}`);
-  client.channels.cache.get(`1076914336745922725`).send(`Moin Joker o/`)
+  client.channels.cache.get(`1076914336745922725`).send(`Ich kann nicht sprechen, nyaaaa~ :C`)
 });
 
 //Listen to new messages on the server
-client.on("message", async (message) => {
-  console.log('recived message')
+client.on("messageCreate", async (message) => {
+  console.log('recived message'+ message.content)
+  
   if (message.content === "ping") {
     message.reply("pong");
     }
